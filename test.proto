@@ -1,0 +1,88 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC 和 HTTP API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+import "google/api/annotations.proto";
+package realotz.api.v1;
+option go_package = "github.com/realotz/protoc-gen-ts-umi/test;test";
+option java_multiple_files = true;
+option java_package = "com.github.realotz.test.v1";
+option java_outer_classname = "TestProto";
+
+service Test {
+  rpc CheckInfo(Request) returns (Response){
+    option (google.api.http) = {
+      get:"/cratos.api.v1.test/CheckInfo"
+    };
+  };
+  // gateway列表
+  rpc GetGatewayList(ListOption) returns(GatewayList){
+    option (google.api.http) = {
+      get:"/cratos.api.v1.test/GetGatewayList"
+    };
+  };
+  // 获取gateway
+  rpc GetGateway(GetKind) returns(Gateway){
+    option (google.api.http) = {
+      get:"/cratos.api.v1.test/GetGateway"
+    };
+  };
+
+  // 创建 Gateway
+  rpc CreateGateway(Gateway) returns(Response){
+    option (google.api.http) = {
+      post:"/cratos.api.v1.test/CreateGateway"
+      body:"*"
+    };
+  };
+  // 更新 Gateway
+  rpc UpdateGateway(Gateway) returns(Response){
+    option (google.api.http) = {
+      post:"/cratos.api.v1.test/UpdateGateway"
+      body:"*"
+    };
+  };
+  // 删除gateway
+  rpc DeleteGateway(DeleteKind) returns(Response){
+    option (google.api.http) = {
+      delete:"/cratos.api.v1.test/DeleteGateway"
+    };
+  };
+}
+
+message ListOption{
+  int64 limit = 1;
+  string continue = 2;
+  string labelSelector = 3;
+  string fieldSelector = 4;
+  string namespace = 5;
+}
+
+message GatewayList{
+  repeated Gateway list = 1;
+}
+
+message Gateway{
+  string apiVersion = 1;
+  string kind = 2;
+}
+
+enum Status {
+  NotName = 0;
+  NotNamespace = 1;
+}
+
+message GetKind{
+  string name = 1;
+  string namespace = 2;
+  string version = 3;
+}
+
+message DeleteKind{
+  string name = 1;
+  string namespace = 2;
+}
+
+message Request{}
+
+message Response{}
