@@ -6,6 +6,12 @@
 // is compatible with the kratos package it is being compiled against.
 
 declare namespace RealotzApiV1 {
+	/** Request */
+	type Request = {
+	}
+	/** Response */
+	type Response = {
+	}
 	/** ListOption */
 	type ListOption = {
 		limit?:number
@@ -33,12 +39,6 @@ declare namespace RealotzApiV1 {
 	type DeleteKind = {
 		name?:string
 		namespace?:string
-	}
-	/** Request */
-	type Request = {
-	}
-	/** Response */
-	type Response = {
 	}
 }
 
